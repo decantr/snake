@@ -1,7 +1,7 @@
 <canvas id='main' width='800' height='600'></canvas>
 <script>
   var canvas = document.getElementById('main');
-  
+
   class Snake {
     constructor () {
       this.snakeX = Math.floor(Math.random() * gridSize)
@@ -49,4 +49,21 @@
       this.tailLength++
     }
   }
+
+  class Food {
+    constructor () {
+      this.x = Math.floor(Math.random() * gridSize)
+      this.y = Math.floor(Math.random() * gridSize)
+    }
+    draw (ctx) {
+      ctx.fillStyle = 'blue'
+      ctx.fillRect(this.x * gridSize, this.y * gridSize, gridSize - 2, gridSize - 2)
+    }
+  }
+
+  function clear (ctx, canvas) {
+    ctx.fillStyle = 'black'
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+  }
+
 </script>
