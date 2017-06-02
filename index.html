@@ -1,9 +1,8 @@
-<canvas id='main' width='800' height='600'></canvas>
+<canvas id='main' moz-opaque width='400' height='400'></canvas>
 <script>
   let xv = 0
   let yv = 0
   const gridSize = 20
-  var canvas = document.getElementById('main');
 
   window.onload = function () {
     const canvas = document.getElementById('main')
@@ -79,16 +78,6 @@
       ctx.fillRect(this.x * gridSize, this.y * gridSize, gridSize - 2, gridSize - 2)
     }
   }
-  class Food {
-    constructor () {
-      this.x = Math.floor(Math.random() * gridSize)
-      this.y = Math.floor(Math.random() * gridSize)
-    }
-    draw (ctx) {
-      ctx.fillStyle = 'blue'
-      ctx.fillRect(this.x * gridSize, this.y * gridSize, gridSize - 2, gridSize - 2)
-    }
-  }
 
   function clear (ctx, canvas) {
     ctx.fillStyle = 'black'
@@ -116,11 +105,14 @@
     }
   }
 
-  function tick (snake, food, ctx) {
-    snake.move()
-    if (snake.checkCollision(food)) snake.grow()
-    snake.draw(ctx)
-    food.draw(ctx)
+  function reset (snake, food, ctx) {
+    console.log('lose')
   }
 
+  function tick (snake, food, ctx) {
+    snake.move()
+    snake.draw(ctx)
+    if (snake.checkCollision(food)) console.log('hello')
+    food.draw(ctx)
+  }
 </script>
