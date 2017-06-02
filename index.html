@@ -1,5 +1,8 @@
 <canvas id='main' width='800' height='600'></canvas>
 <script>
+  let xv = 0
+  let yv = 0
+  const gridSize = 20
   var canvas = document.getElementById('main');
 
   class Snake {
@@ -74,6 +77,27 @@
   function clear (ctx, canvas) {
     ctx.fillStyle = 'black'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
+  }
+
+  function keyPress (event) {
+    switch (event.keyCode) {
+      case 37:
+        xv = -1
+        yv = 0
+        break
+      case 38:
+        xv = 0
+        yv = -1
+        break
+      case 39:
+        xv = 1
+        yv = 0
+        break
+      case 40:
+        xv = 0
+        yv = 1
+        break
+    }
   }
 
 
