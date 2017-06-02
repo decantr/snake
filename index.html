@@ -2,4 +2,51 @@
 <script>
   var canvas = document.getElementById('main');
   
+  class Snake {
+    constructor () {
+      this.snakeX = Math.floor(Math.random() * gridSize)
+      this.snakeY = Math.floor(Math.random() * gridSize)
+      this.tailLength = 3
+      this.tail = []
+
+      this.snakeY += this.tailLength
+      while (this.tail.length !== this.tailLength) {
+        this.tail.push({x: this.snakeX, y: this.snakeY--})
+      }
+    }
+    handleTail () {
+      this.tail.push({x: this.snakeX, y: this.snakeY})
+      while (this.tail.length > this.tailLength) {
+        this.tail.shift()
+      }
+    }
+    draw (ctx) {
+      ctx.fillStyle = 'green'
+      ctx.fillRect(this.snakeX * gridSize, this.snakeY * gridSize, gridSize - 2, gridSize - 2)
+      for (let i = 0; i < this.tail.length; i++) {
+        ctx.fillRect(this.tail[i].x * gridSize, this.tail[i].y * gridSize, gridSize - 2, gridSize - 2)
+      }
+    }
+    move () {
+      if (xv !== 0 || yv !== 0) {
+        this.handleTail()
+        this.snakeX += xv
+        this.snakeY += yv
+        for (let i = 0; i < this.tail.length; i++) {
+          if (this.checkCollision(this.tail[i])) {
+            reset()
+            break
+          }
+        }
+      }
+    }
+    checkCollision (item) {
+      if (this.snakeX === item.snakeX && this.snakeY === item.snakeY) {
+        return true
+      }
+    }
+    grow () {
+      this.tailLength++
+    }
+  }
 </script>
