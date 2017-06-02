@@ -54,7 +54,7 @@
         this.y = (this.y + gridSize) % gridSize
         for (let i = 0; i < this.tail.length; i++) {
           if (this.checkCollision(this.tail[i])) {
-            reset()
+            reset(this)
             break
           }
         }
@@ -67,6 +67,17 @@
     }
     grow () {
       this.tailLength++
+    }
+    reset () {
+      this.x = Math.floor(Math.random() * gridSize)
+      this.y = Math.floor(Math.random() * gridSize)
+      this.tailLength = 3
+      this.tail = []
+
+      this.y += this.tailLength
+      while (this.tail.length !== this.tailLength) {
+        this.tail.push({x: this.x, y: this.y--})
+      }
     }
   }
 
@@ -116,8 +127,9 @@
     food.move()
   }
 
-  function reset (snake, food, ctx) {
-    console.log('lose')
+  function reset (snake) {
+    xv = yv = 0
+    snake.reset()
   }
 
   function tick (snake, food, ctx) {
