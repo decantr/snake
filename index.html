@@ -104,21 +104,37 @@
   function keyPress (event) {
     switch (event.keyCode) {
       case 37:
-        xv = -1
-        yv = 0
-        break
+        if (xv === -1) break
+        else if (xv === 1) break
+        else {
+          xv = -1
+          yv = 0
+          break
+        }
       case 38:
+      if (yv === -1) break
+      else if (yv === 1) break
+      else {
         xv = 0
         yv = -1
         break
+      }
       case 39:
+      if (xv === 1) break
+      else if (xv === -1) break
+      else {
         xv = 1
         yv = 0
         break
+      }
       case 40:
+      if (yv === 1) break
+      else if (yv === -1) break
+      else {
         xv = 0
         yv = 1
         break
+      }
     }
   }
 
