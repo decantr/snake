@@ -52,30 +52,12 @@
         this.y += yv
         this.x = (this.x + gridSize) % gridSize
         this.y = (this.y + gridSize) % gridSize
-        // if (this.x < 0) {
-        //   console.log('1')
-        //   this.x = gridSize - 1
-        // }
-        // if (this.x > gridSize - 1) {
-        //   console.log('2')
-        //   this.x = 0
-        // }
-        // if (this.y < 0) {
-        //   console.log('3')
-        //   this.y = gridSize - 1
-        // }
-        // if (this.y > gridSize - 1) {
-        //   console.log('4')
-        //   this.y = 0
-        // }
         for (let i = 0; i < this.tail.length; i++) {
           if (this.checkCollision(this.tail[i])) {
             reset()
             break
           }
         }
-        // this.x %= gridSize
-        // this.y %= gridSize
       }
     }
     checkCollision (item) {
