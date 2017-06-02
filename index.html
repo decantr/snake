@@ -1,8 +1,11 @@
+<h1 id='score'>0</h1>
 <canvas id='main' moz-opaque width='400' height='400'></canvas>
 <script>
   let xv = 0
   let yv = 0
+  let score = 0
   const gridSize = 20
+  const scoreDisp = document.getElementById('score')
 
   window.onload = function () {
     const canvas = document.getElementById('main')
@@ -67,6 +70,8 @@
     }
     grow () {
       this.tailLength++
+      score++
+      scoreDisp.innerHTML = score
     }
     reset () {
       this.x = Math.floor(Math.random() * gridSize)
@@ -147,6 +152,8 @@
     xv = yv = 0
     snake.reset()
     food.move()
+    score = 0
+    scoreDisp.innerHTML = 0
   }
 
   function tick (snake, food, ctx) {
