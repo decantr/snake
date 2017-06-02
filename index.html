@@ -54,11 +54,12 @@
         this.y = (this.y + gridSize) % gridSize
         for (let i = 0; i < this.tail.length; i++) {
           if (this.checkCollision(this.tail[i])) {
-            reset(this)
+            return 1
             break
           }
         }
       }
+      return 0
     }
     checkCollision (item) {
       if (this.x === item.x && this.y === item.y) {
@@ -127,15 +128,16 @@
     food.move()
   }
 
-  function reset (snake) {
+  function reset (snake, food) {
     xv = yv = 0
     snake.reset()
+    food.move()
   }
 
   function tick (snake, food, ctx) {
-    snake.move()
-    snake.draw(ctx)
+    if (snake.move() === 1) reset(snake, food)
     if (snake.checkCollision(food)) gotFood(snake, food)
+    snake.draw(ctx)
     food.draw(ctx)
   }
 </script>
