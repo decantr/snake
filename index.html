@@ -22,25 +22,25 @@
 
   class Snake {
     constructor () {
-      this.snakeX = Math.floor(Math.random() * gridSize)
-      this.snakeY = Math.floor(Math.random() * gridSize)
+      this.x = Math.floor(Math.random() * gridSize)
+      this.y = Math.floor(Math.random() * gridSize)
       this.tailLength = 3
       this.tail = []
 
-      this.snakeY += this.tailLength
+      this.y += this.tailLength
       while (this.tail.length !== this.tailLength) {
-        this.tail.push({x: this.snakeX, y: this.snakeY--})
+        this.tail.push({x: this.x, y: this.y--})
       }
     }
     handleTail () {
-      this.tail.push({x: this.snakeX, y: this.snakeY})
+      this.tail.push({x: this.x, y: this.y})
       while (this.tail.length > this.tailLength) {
         this.tail.shift()
       }
     }
     draw (ctx) {
       ctx.fillStyle = 'green'
-      ctx.fillRect(this.snakeX * gridSize, this.snakeY * gridSize, gridSize - 2, gridSize - 2)
+      ctx.fillRect(this.x * gridSize, this.y * gridSize, gridSize - 2, gridSize - 2)
       for (let i = 0; i < this.tail.length; i++) {
         ctx.fillRect(this.tail[i].x * gridSize, this.tail[i].y * gridSize, gridSize - 2, gridSize - 2)
       }
@@ -48,8 +48,8 @@
     move () {
       if (xv !== 0 || yv !== 0) {
         this.handleTail()
-        this.snakeX += xv
-        this.snakeY += yv
+        this.x += xv
+        this.y += yv
         for (let i = 0; i < this.tail.length; i++) {
           if (this.checkCollision(this.tail[i])) {
             reset()
@@ -59,7 +59,7 @@
       }
     }
     checkCollision (item) {
-      if (this.snakeX === item.snakeX && this.snakeY === item.snakeY) {
+      if (this.x === item.x && this.y === item.y) {
         return true
       }
     }
@@ -76,6 +76,10 @@
     draw (ctx) {
       ctx.fillStyle = 'blue'
       ctx.fillRect(this.x * gridSize, this.y * gridSize, gridSize - 2, gridSize - 2)
+    }
+    move () {
+      this.x = Math.floor(Math.random() * gridSize)
+      this.y = Math.floor(Math.random() * gridSize)
     }
   }
 
@@ -105,6 +109,11 @@
     }
   }
 
+  function gotFood (snake, food) {
+    snake.grow()
+    food.move()
+  }
+
   function reset (snake, food, ctx) {
     console.log('lose')
   }
@@ -112,7 +121,7 @@
   function tick (snake, food, ctx) {
     snake.move()
     snake.draw(ctx)
-    if (snake.checkCollision(food)) console.log('hello')
+    if (snake.checkCollision(food)) gotFood(snake, food)
     food.draw(ctx)
   }
 </script>
