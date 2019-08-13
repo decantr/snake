@@ -27,9 +27,10 @@ body {
     if (canvas.getContext) {
       const ctx = canvas.getContext('2d')
       clear(ctx, canvas)
-      document.addEventListener('keydown', keyPress)
-      let snake = new Snake()
+      //document.addEvent... vvv
+      window.snake = new Snake() //let 
       let food = new Food()
+	  document.addEventListener('keydown', keyPress) //moved here to after snake is created
 
       setInterval(function () {
         clear(ctx, canvas)
@@ -120,39 +121,48 @@ body {
     ctx.fillStyle = 'black'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
   }
+  
+  
+
+
 
   function keyPress (event) {
     switch (event.keyCode) {
       case 37:
-        if (xv === -1) break
-        else if (xv === 1) break
+        //if (xv === -1) break
+        if (xv === 1) break //else
         else {
           xv = -1
           yv = 0
+		  snake.move() //force snake to move immmediately after successful speed change
+		  //window.alert(5 + 6) //testing thing, couldn't see this for a while, idk js man wtf
           break
         }
       case 38:
-        if (yv === -1) break
-        else if (yv === 1) break
+        //if (yv === -1) break
+        if (yv === 1) break //else
         else {
           xv = 0
           yv = -1
+		  snake.move()
           break
         }
       case 39:
-        if (xv === 1) break
-        else if (xv === -1) break
+        //if (xv === 1) break
+        if (xv === -1) break //else
         else {
           xv = 1
           yv = 0
+		  snake.move()
           break
         }
       case 40:
-        if (yv === 1) break
-        else if (yv === -1) break
+        //if (yv === 1) break
+        if (yv === -1) break //else
         else {
           xv = 0
           yv = 1
+		  snake.move()
           break
         }
     }
